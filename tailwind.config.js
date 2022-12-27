@@ -13,15 +13,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#edf0f0',
-        secondary: '#2a3343',
-        third: '#d49836',
-        forth: '#9c523c',
-        text: '#949a9f',
-        fifth: '#dec39d',
-        sixth: '#c1c7cc',
-        seven: '#caa292',
-        eight: '#617265',
+        primary: '#f6f8fa',
+        secondary: '#00ad1c',
+        secondary1: '#2a3343',
+        hover: '#ff7a00',
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },
