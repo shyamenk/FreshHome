@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import {AnimatePresence, motion} from 'framer-motion'
 import Link from 'next/link'
-
+import DropDownMenu from './DropDown'
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const isLoggedIn = false
 
   return (
     <header className="z-30 flex items-center justify-between p-4 text-gray-600 border-b shadow-sm ">
@@ -74,25 +76,25 @@ const NavBar: React.FC = () => {
               <div className="flex-grow ">
                 <Link
                   href="/category"
-                  className="block px-4 py-2 text-black hover:rounded-md hover:bg-primary lg:inline-block lg:mt-0"
+                  className="block px-4 py-2 text-black hover:rounded-lg hover:bg-gray-200 lg:inline-block lg:mt-0"
                 >
                   Categories
                 </Link>
                 <Link
                   href="/create"
-                  className="block px-4 py-2 text-black hover:bg-primary lg:inline-block lg:mt-0"
+                  className="block px-4 py-2 text-black hover:rounded-lg hover:bg-gray-200 lg:inline-block lg:mt-0"
                 >
                   Service
                 </Link>
                 <Link
                   href="/contact"
-                  className="block px-4 py-2 text-black hover:bg-primary lg:inline-block lg:mt-0"
+                  className="block px-4 py-2 text-black hover:rounded-lg hover:bg-gray-200 lg:inline-block lg:mt-0"
                 >
                   Contact
                 </Link>
                 <Link
                   href="/about"
-                  className="block px-4 py-2 text-black hover:bg-primary lg:inline-block lg:mt-0"
+                  className="block px-4 py-2 text-black hover:rounded-lg hover:bg-gray-200 lg:inline-block lg:mt-0"
                 >
                   About
                 </Link>
@@ -106,7 +108,7 @@ const NavBar: React.FC = () => {
           <div
             className={`${
               isOpen ? 'block' : 'hidden'
-            }  lg:flex lg:items-center w-full lg:w-auto`}
+            }  md:flex md:items-center md:justify-center w-full md:w-auto`}
           >
             <div className="text-lg font-semibold lg:flex-grow">
               <Link
@@ -134,9 +136,18 @@ const NavBar: React.FC = () => {
                 About
               </Link>
 
-              <button className="inline-flex px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
-                Login
-              </button>
+              {isLoggedIn ? (
+                <div className="inline-flex gap-2 ">
+                  <DropDownMenu />
+                  <button className="px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
+                    LogOut
+                  </button>
+                </div>
+              ) : (
+                <button className="inline-flex px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
+                  LogIn
+                </button>
+              )}
             </div>
           </div>
         )}
