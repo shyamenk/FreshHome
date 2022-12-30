@@ -11,6 +11,7 @@ const Modal: React.FunctionComponent = () => {
   const closeModal = () => {
     setIsOpen(false)
   }
+
   return (
     <div>
       <button
@@ -31,9 +32,7 @@ const Modal: React.FunctionComponent = () => {
               <button
                 onClick={closeModal}
                 className="float-right text-gray-600 hover:text-gray-800"
-              >
-                ×
-              </button>
+              ></button>
               <h1 className="mb-4 text-2xl font-bold text-gray-800">
                 Modal Title
               </h1>

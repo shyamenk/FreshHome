@@ -108,7 +108,7 @@ const NavBar: React.FC = () => {
           <div
             className={`${
               isOpen ? 'block' : 'hidden'
-            }  md:flex md:items-center md:justify-center w-full md:w-auto`}
+            }  lg:flex lg:items-center lg:justify-center w-full md:w-auto`}
           >
             <div className="text-lg font-semibold lg:flex-grow">
               <Link
