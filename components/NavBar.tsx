@@ -2,10 +2,20 @@ import React, {useState} from 'react'
 import {AnimatePresence, motion} from 'framer-motion'
 import Link from 'next/link'
 import DropDownMenu from './DropDown'
+import {signIn, useSession} from 'next-auth/react'
+import Spinner from './Spinner'
+
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const {data: session, status} = useSession()
 
-  const isLoggedIn = false
+  if (status === 'loading') {
+    return <Spinner />
+  }
+
+  if (status === 'unauthenticated') {
+    ;<h1>no access</h1>
+  }
 
   return (
     <header className="z-30 flex items-center justify-between p-4 text-gray-600 border-b shadow-sm ">
@@ -136,15 +146,18 @@ const NavBar: React.FC = () => {
                 About
               </Link>
 
-              {isLoggedIn ? (
+              {session ? (
                 <div className="inline-flex gap-2 ">
                   <DropDownMenu />
-                  <button className="px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
+                  {/* <button className="px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
                     LogOut
-                  </button>
+                  </button> */}
                 </div>
               ) : (
-                <button className="inline-flex px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
+                <button
+                  onClick={() => signIn('google')}
+                  className="inline-flex px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover"
+                >
                   LogIn
                 </button>
               )}
