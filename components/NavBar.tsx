@@ -4,18 +4,20 @@ import Link from 'next/link'
 import DropDownMenu from './DropDown'
 import {signIn, useSession} from 'next-auth/react'
 import Spinner from './Spinner'
+import {useRouter} from 'next/router'
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const {data: session, status} = useSession()
 
+  const router = useRouter()
   if (status === 'loading') {
     return <Spinner />
   }
 
-  if (status === 'unauthenticated') {
-    ;<h1>no access</h1>
-  }
+  // if (status === 'unauthenticated') {
+  //   return <h1>no access</h1>
+  // }
 
   return (
     <header className="z-30 flex items-center justify-between p-4 text-gray-600 border-b shadow-sm ">
@@ -91,7 +93,7 @@ const NavBar: React.FC = () => {
                   Categories
                 </Link>
                 <Link
-                  href="/create"
+                  href="/services"
                   className="block px-4 py-2 text-black hover:rounded-lg hover:bg-gray-200 lg:inline-block lg:mt-0"
                 >
                   Service
@@ -128,7 +130,7 @@ const NavBar: React.FC = () => {
                 Categories
               </Link>
               <Link
-                href="#"
+                href="/services"
                 className="block mt-4 mr-4 text-gray-800 border-hover lg:inline-block lg:mt-0 hover:text-gray-600 hover:border-b-2"
               >
                 Service
@@ -155,7 +157,7 @@ const NavBar: React.FC = () => {
                 </div>
               ) : (
                 <button
-                  onClick={() => signIn('google')}
+                  onClick={() => router.push('/login')}
                   className="inline-flex px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover"
                 >
                   LogIn

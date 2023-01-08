@@ -50,7 +50,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = () => {
           isOpen ? '' : 'hidden'
         } absolute bg-white rounded-lg shadow-xl py-2 divide-y `}
       >
-        <div className="absolute w-48 py-2 mt-2 bg-white rounded-md shadow-xs -right-20 ">
+        <div className="absolute w-48 py-2 mt-2 bg-white rounded-md shadow-xs -right-12 top-0.5 ">
           <Link
             href="#"
             className="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
@@ -68,7 +68,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = () => {
             href="/"
             className="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
           >
-            SignO out
+            Sign out
           </Link>
         </div>
       </div>
