@@ -1,14 +1,16 @@
+import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useState, useRef, useEffect} from 'react'
 
 type DropdownMenuProps = {}
 
-type DropdownMenuState = {
-  isOpen: boolean
-}
+// type DropdownMenuState = {
+//   isOpen: boolean
+// }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = () => {
+  const {data: session} = useSession()
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -29,9 +31,18 @@ const DropdownMenu: React.FC<DropdownMenuProps> = () => {
     <nav ref={menuRef} className="relative z-10 ">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative w-10 h-10 overflow-hidden rounded-full "
+        className="relative w-8 h-8 overflow-hidden rounded-full "
       >
-        <Image src="/avatar.png" alt="avatar" fill sizes="100vh" />
+        {session ? (
+          <Image
+            src={session.user.image || ''}
+            alt="avatar"
+            fill
+            sizes="100vh"
+          />
+        ) : (
+          <Image src="/avatar.png" alt="avatar" fill sizes="100vh" />
+        )}
       </button>
 
       <div
@@ -53,7 +64,8 @@ const DropdownMenu: React.FC<DropdownMenuProps> = () => {
             Settings
           </Link>
           <Link
-            href="#"
+            onClick={() => signOut()}
+            href="/"
             className="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
           >
             Sign out
