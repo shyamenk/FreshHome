@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {AnimatePresence, motion} from 'framer-motion'
 import Link from 'next/link'
-import DropDownMenu from './DropDown'
+import DropDownMenu from '../DropDown'
 import {signIn, useSession} from 'next-auth/react'
-import Spinner from './Spinner'
+import Spinner from '../shared/Spinner'
 import {useRouter} from 'next/router'
 
 const NavBar: React.FC = () => {
@@ -149,11 +149,8 @@ const NavBar: React.FC = () => {
               </Link>
 
               {session ? (
-                <div className="inline-flex gap-2 ">
+                <div className="inline-flex gap-2 mr-2 ">
                   <DropDownMenu />
-                  {/* <button className="px-8 py-2 mt-4 mr-12 text-sm text-white rounded-full bg-secondary1 lg:mt-0 hover:bg-hover">
-                    LogOut
-                  </button> */}
                 </div>
               ) : (
                 <button

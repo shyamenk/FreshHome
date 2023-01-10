@@ -26,6 +26,7 @@ export default NextAuth({
     async session({session, user, token}) {
       if (session) {
         session.user.id = user.id
+        session.user.role = user.role
       }
       return session
       // async jwt({ token, user, account, profile, isNewUser }) { return token }

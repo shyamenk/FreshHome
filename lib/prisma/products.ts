@@ -22,11 +22,11 @@ export async function createProduct(product: Product) {
 }
 export async function getProductById(id: string) {
   try {
-    const products = await prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: {id},
       include: {Category: true},
     })
-    return {products}
+    return {product}
   } catch (error) {
     return {error}
   }
