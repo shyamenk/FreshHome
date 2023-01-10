@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import {Inter} from '@next/font/google'
-import NavBar from '@/components/NavBar'
-import Hero from '@/components/HeroSection'
-import Spinner from '@/components/Spinner'
+import NavBar from '@/components/layout/NavBar'
+import Hero from '@/components/layout/HeroSection'
+import Spinner from '@/components/shared/Spinner'
+import Feature from '@/components/layout/Feature'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -16,6 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero />
+      <Feature />
     </>
   )
 }
