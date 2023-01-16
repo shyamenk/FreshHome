@@ -12,9 +12,8 @@ const AdminDashboard: NextPageWithLayout = () => {
 
   if (session?.user.role === 'ADMIN') {
     return (
-      <div>
-        <h1>ADMIN</h1>
-        <p>Welcome to the Admin Portal!</p>
+      <div className="pt-8 text-4xl text-center text-blue-700 px-auto">
+        Welcome Admin!
       </div>
     )
   } else {

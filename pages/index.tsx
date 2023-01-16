@@ -1,11 +1,7 @@
 import Head from 'next/head'
 import {Inter} from '@next/font/google'
-import NavBar from '@/components/layout/NavBar'
 import Hero from '@/components/layout/HeroSection'
-import Spinner from '@/components/shared/Spinner'
 import Feature from '@/components/layout/Feature'
-import {ReactElement} from 'react'
-import MainLayout from '@/components/layout/MainLayout'
 
 const inter = Inter({subsets: ['latin']})
 
