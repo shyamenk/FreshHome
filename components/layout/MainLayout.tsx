@@ -5,7 +5,7 @@ type Props = {
   children: ReactNode
 }
 
-export default function Layout({children}: Props) {
+export default function MainLayout({children}: Props) {
   return (
     <>
       <NavBar />

@@ -9,3 +9,8 @@
     @apply bg-primary antialiased;
   }
 }
+@layer base {
+  [data-nextjs-scroll-focus-boundary] {
+    display: contents;
+  }
+}

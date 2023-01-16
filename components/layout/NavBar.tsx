@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {AnimatePresence, motion} from 'framer-motion'
 import Link from 'next/link'
 import DropDownMenu from '../DropDown'
-import {signIn, useSession} from 'next-auth/react'
+import {useSession} from 'next-auth/react'
 import Spinner from '../shared/Spinner'
 import {useRouter} from 'next/router'
 
