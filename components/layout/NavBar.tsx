@@ -15,6 +15,8 @@ const NavBar: React.FC = () => {
     return <Spinner />
   }
 
+  // TODO:"Test Tod0"
+
   // if (status === 'unauthenticated') {
   //   return <h1>no access</h1>
   // }
@@ -28,7 +30,7 @@ const NavBar: React.FC = () => {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="orange"
-          className="w-8 h-8"
+          className="w-8 h-8 "
         >
           <path
             strokeLinecap="round"

@@ -1,4 +1,3 @@
-import Settings from '../icons/Settings'
 import SideBar from './SideBar'
 
 interface IProps {
