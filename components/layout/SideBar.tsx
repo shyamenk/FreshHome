@@ -12,7 +12,7 @@ const SideBar = () => {
         {session ? (
           <Image
             src={session?.user?.image || ''}
-            alt="dhf"
+            alt="avatar"
             className="w-12 h-12 rounded-full"
             width={48}
             height={48}
