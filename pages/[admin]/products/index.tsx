@@ -1,142 +1,191 @@
-import AdminLayout from '@/components/layout/AdminLayout'
 import React, {ReactElement} from 'react'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {useForm, SubmitHandler, Controller} from 'react-hook-form'
 import {z} from 'zod'
+import AdminLayout from '@/components/layout/AdminLayout'
+import FormInput from '@/components/shared/FormInput'
+// import Spinner from '@/components/shared/Spinner'
 
 const ProductSchema = z.object({
-  name: z.string().min(3, {message: 'Must be 3 or more characters long'}),
-  description: z
-    .string()
-    .min(5, {message: 'Must be 3 or more characters long'}),
-  category: z.string().min(5, {message: 'Must be 3 or more characters long'}),
-  price: z.number().positive({message: 'Must Be a Number'}),
-  quantity: z.number().positive({message: 'Must Be a Number'}),
-  discount: z.optional(z.number()),
-  imageUrl: z
-    .string()
-    .startsWith('https://', {message: 'Must provide secure URL'}),
+  name: z.string().min(2),
+  description: z.string().min(2),
+  category: z.string().min(1),
+  imageURL: z.string().url(),
+  price: z.coerce.number().min(1).nonnegative(),
+  quantity: z.coerce.number().min(1).nonnegative(),
+  discount: z.coerce.number().min(1).nonnegative(),
 })
 
-type Product = z.infer<typeof ProductSchema>
+export type ProductSchemaType = z.infer<typeof ProductSchema>
 
 const AddProduct = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors, isSubmitting},
+  } = useForm<ProductSchemaType>({resolver: zodResolver(ProductSchema)})
+
+  const onSubmit: SubmitHandler<ProductSchemaType> = async data => {
+    await new Promise<void>(async resolve => {
+      await setTimeout(() => {
+        console.log(data)
+        resolve(undefined)
+      }, 3000)
+    })
+
+    reset()
+  }
+
+  console.log(errors)
+
+  // if (isSubmitting) {
+  //   return <Spinner />
+  // }
+
   return (
     <div>
-      <section className="p-6 mx-auto bg-primary text-secondary1">
-        <form className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
-          <fieldset className="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-primary">
-            <h1 className="text-2xl font-medium">Add Products</h1>
-            <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-              <div className="col-span-full sm:col-span-3">
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Title
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Title"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
-                />
-              </div>
-              <div className="col-span-full sm:col-span-3">
-                <label
-                  htmlFor="description"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Description
-                </label>
-                <input
-                  id="description"
-                  placeholder="Description"
-                  type="text"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="col-span-full sm:col-span-2">
-                <label
-                  htmlFor="category"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Category
-                </label>
-                <select
-                  id="category"
-                  className="block w-full px-3 py-2 text-sm text-gray-700 border rounded shadow appearance-none bg-gray-50 focus:outline-none focus:shadow-outline "
-                >
-                  <option value="Category">Select</option>
-                  <option value="VEG">Vegetables</option>
-                  <option value="FRUIT">Fruits</option>
-                  <option value="FG">Food Grains</option>
-                  <option value="Bev">Beverages</option>
-                </select>
-              </div>
-              <div className="col-span-full sm:col-span-2">
-                <label
-                  htmlFor="price"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Price
-                </label>
-                <input
-                  id="price"
-                  type="text"
-                  placeholder="Price"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="col-span-full sm:col-span-2">
-                <label
-                  htmlFor="quantity"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Quantity
-                </label>
-                <input
-                  id="quantity"
-                  type="number"
-                  placeholder="Quantity"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="col-span-full sm:col-span-2">
-                <label
-                  htmlFor="discount"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  Discount
-                </label>
-                <input
-                  id="discount"
-                  type="number"
-                  placeholder="Dsicount"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="col-span-full sm:col-span-4">
-                <label
-                  htmlFor="imageURL"
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                >
-                  ImageURL
-                </label>
-                <input
-                  id="imageURL"
-                  type="text"
-                  placeholder="www.imageurl.com"
-                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="mx-auto col-span-full sm:col-span-6">
-                <button className="w-64 px-4 py-2 font-bold text-white rounded bg-hover hover:bg-red-700 focus:outline-none focus:shadow-lg">
-                  Add Product
-                </button>
-              </div>
+      <form
+        // onSubmit={handleSubmit(formSubmitHandler)}
+        onSubmit={handleSubmit(onSubmit)}
+        className="container flex flex-col mx-auto space-y-12 "
+      >
+        <fieldset className="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-primary">
+          <h1 className="text-2xl font-medium">Add Products</h1>
+
+          <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+            <div className="col-span-full sm:col-span-2">
+              <FormInput
+                label="Name"
+                name="name"
+                type="text"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.name && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.name?.message}
+                </p>
+              )}
             </div>
-          </fieldset>
-        </form>
-      </section>
+
+            <div className="col-span-full sm:col-span-2">
+              <FormInput
+                name="description"
+                label="Description"
+                type="text"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.description && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.description?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full sm:col-span-2">
+              <label
+                htmlFor="category"
+                className="block mb-2 text-sm font-bold text-gray-700"
+              >
+                Category
+              </label>
+              <select
+                {...register('category', {
+                  required: 'Email Address is required',
+                })}
+                className='className="block w-full px-3 py-2 text-sm text-gray-700 border rounded shadow appearance-none bg-gray-50 focus:outline-none focus:shadow-outline'
+              >
+                <option value="" disabled>
+                  Choose One
+                </option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Beverages">Beverages</option>
+              </select>
+              {errors?.category && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.category?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full sm:col-span-2">
+              <FormInput
+                name="imageURL"
+                label="ImageURL"
+                type="text"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.imageURL && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.imageURL?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full sm:col-span-1">
+              <FormInput
+                name="price"
+                label="Price"
+                type="number"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.price && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.price?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full sm:col-span-1">
+              <FormInput
+                name="quantity"
+                label="Quantity"
+                type="number"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.quantity && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.quantity?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full sm:col-span-1">
+              <FormInput
+                name="discount"
+                label="Discount"
+                type="number"
+                register={register}
+                isSubmitting={isSubmitting}
+              />
+              {errors?.discount && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.discount?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="mx-auto col-span-full sm:col-span-6">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-64 px-4 py-2 font-bold text-white bg-red-700 rounded hover:bg-red-500 focus:outline-none focus:shadow-lg disabled:bg-gray-100 disabled:text-gray-300 disabled:cursor-not-allowed"
+              >
+                Add Product
+              </button>
+            </div>
+          </div>
+        </fieldset>
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
+      </form>
+      {/* </section> */}
     </div>
   )
 }
