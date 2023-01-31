@@ -12,7 +12,7 @@ const ServicePage = () => {
     router.push('/login')
   }
   if (status === 'authenticated') {
-    return <div> Service Page</div>
+    return <div> Service Page added</div>
   }
 }
 
