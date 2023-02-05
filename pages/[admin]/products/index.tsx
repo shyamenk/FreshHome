@@ -1,10 +1,10 @@
 import React, {ReactElement} from 'react'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {useForm, SubmitHandler, Controller} from 'react-hook-form'
-import {z} from 'zod'
+import {useForm, SubmitHandler} from 'react-hook-form'
 import AdminLayout from '@/components/layout/AdminLayout'
 import FormInput from '@/components/shared/FormInput'
-// import Spinner from '@/components/shared/Spinner'
+import Spinner from '@/components/shared/Spinner'
+import {z} from 'zod'
 
 const ProductSchema = z.object({
   name: z.string().min(2),
@@ -27,26 +27,31 @@ const AddProduct = () => {
   } = useForm<ProductSchemaType>({resolver: zodResolver(ProductSchema)})
 
   const onSubmit: SubmitHandler<ProductSchemaType> = async data => {
-    await new Promise<void>(async resolve => {
-      await setTimeout(() => {
-        console.log(data)
-        resolve(undefined)
-      }, 3000)
-    })
+    try {
+      const response = await fetch(`http://localhost:3000/api/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
-    reset()
+      if (response.status === 200) {
+        console.log('Document Added Successfully')
+        reset()
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  console.log(errors)
-
-  // if (isSubmitting) {
-  //   return <Spinner />
-  // }
+  if (isSubmitting) {
+    return <Spinner />
+  }
 
   return (
     <div>
       <form
-        // onSubmit={handleSubmit(formSubmitHandler)}
         onSubmit={handleSubmit(onSubmit)}
         className="container flex flex-col mx-auto space-y-12 "
       >
@@ -183,9 +188,7 @@ const AddProduct = () => {
             </div>
           </div>
         </fieldset>
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
       </form>
-      {/* </section> */}
     </div>
   )
 }

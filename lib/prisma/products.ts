@@ -1,5 +1,15 @@
 import {prisma} from '.'
-import {Product} from '@prisma/client'
+import {ProductSchemaType} from 'pages/[admin]/products'
+
+interface IProduct {
+  name: string
+  description: string
+  price: number
+  quantity: number
+  imageURL: string
+  discount: number
+  category: string
+}
 
 export async function getProducts() {
   try {
@@ -10,12 +20,30 @@ export async function getProducts() {
   }
 }
 
-export async function createProduct(product: Product) {
+export async function createProduct(product: IProduct) {
   try {
     const newProduct = await prisma.product.create({
-      data: product,
+      data: {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        quantity: product.quantity,
+        imageURL: product.imageURL,
+        discount: product.discount,
+      },
     })
-    return {product: newProduct}
+    const result = await prisma.category.create({
+      data: {
+        name: product.category,
+        description: product.description,
+        product: {
+          connect: {
+            id: newProduct.id,
+          },
+        },
+      },
+    })
+    return {result}
   } catch (error) {
     return {error}
   }

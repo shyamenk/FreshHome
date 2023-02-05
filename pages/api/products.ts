@@ -31,11 +31,9 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       const data = req.body
-      const {product, error} = await createProduct(data)
-
+      const {result, error} = await createProduct(data)
       if (error) console.log(error)
-
-      return res.status(200).json({product})
+      return res.status(200).json({result})
     } catch (error) {
       console.log(error)
     }

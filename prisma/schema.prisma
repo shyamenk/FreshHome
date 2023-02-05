@@ -98,12 +98,8 @@ model Product {
   modifiedAt  DateTime?
   deletedAt   DateTime?
 
-  Category    Category?  @relation(fields: [categoryId], references: [id])
-  categoryId  String?    @db.ObjectId
-  Inventory   Inventory? @relation(fields: [inventoryId], references: [id])
-  inventoryId String?    @db.ObjectId
-  Discount    Discount?  @relation(fields: [discountId], references: [id])
-  discountId  String?    @db.ObjectId
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?   @db.ObjectId
 
   orderItem OrderItems[]
   cartItem  Cart_Item[]
@@ -117,28 +113,6 @@ model Category {
   modifiedAt  DateTime?
   deletedAt   DateTime?
   product     Product[]
-}
-
-model Inventory {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  quantity   Int
-  createdAt  DateTime?
-  modifiedAt DateTime?
-  deletedAt  DateTime?
-  product    Product[]
-}
-
-model Discount {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  percentage  Int
-  active      Boolean
-  createdAt   DateTime?
-  modifiedAt  DateTime?
-  deletedAt   DateTime?
-
-  product Product[]
 }
 
 model Order {
