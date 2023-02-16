@@ -1,5 +1,4 @@
 import {prisma} from '.'
-import {ProductSchemaType} from 'pages/[admin]/products'
 
 interface IProduct {
   name: string
@@ -11,9 +10,13 @@ interface IProduct {
   category: string
 }
 
-export async function getProducts() {
+export async function getProducts<IProduct>() {
   try {
-    const products = await prisma.product.findMany()
+    const products = await prisma.product.findMany({
+      include: {
+        Category: true,
+      },
+    })
     return {products}
   } catch (error) {
     return {error}

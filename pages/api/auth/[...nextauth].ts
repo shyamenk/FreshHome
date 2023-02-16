@@ -1,7 +1,8 @@
 import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
 import {prisma} from '@/lib/prisma'
 import {PrismaAdapter} from '@next-auth/prisma-adapter'
+import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -9,6 +10,10 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
   ],
 
@@ -23,7 +28,7 @@ export default NextAuth({
   callbacks: {
     // async signIn({ user, account, profile, email, credentials }) { return true },
     // async redirect({ url, baseUrl }) { return baseUrl },
-    async session({session, user, token}) {
+    async session({session, user}) {
       if (session) {
         session.user.id = user.id
         session.user.role = user.role

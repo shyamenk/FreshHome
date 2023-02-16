@@ -3,7 +3,6 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import AdminLayout from '@/components/layout/AdminLayout'
 import FormInput from '@/components/shared/FormInput'
-import Spinner from '@/components/shared/Spinner'
 import {z} from 'zod'
 
 const ProductSchema = z.object({
@@ -37,16 +36,11 @@ const AddProduct = () => {
       })
 
       if (response.status === 200) {
-        console.log('Document Added Successfully')
         reset()
       }
     } catch (error) {
       console.log(error)
     }
-  }
-
-  if (isSubmitting) {
-    return <Spinner />
   }
 
   return (

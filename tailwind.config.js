@@ -17,6 +17,7 @@ module.exports = {
         secondary: '#1a2647',
         secondary1: '#2a3343',
         hover: '#ff7a00',
+        stats: '#6f4e7c',
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

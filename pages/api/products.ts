@@ -6,23 +6,13 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    const {productId} = req.query
-
-    if (productId) {
-      const id = String(productId)
-      try {
-        const {product, error} = await getProductById(id)
-        if (error) console.log(error)
-        res.status(200).json({product})
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
     try {
       const {products, error} = await getProducts()
-      if (error) console.log(error)
-      res.status(200).json({products})
+      if (error) {
+        return res.status(400).json({error})
+      } else {
+        return res.status(200).json({products})
+      }
     } catch (error) {
       console.log(error)
     }
@@ -32,7 +22,9 @@ export default async function handler(
     try {
       const data = req.body
       const {result, error} = await createProduct(data)
-      if (error) console.log(error)
+      if (error) {
+        return res.status(400).json({error})
+      }
       return res.status(200).json({result})
     } catch (error) {
       console.log(error)
