@@ -60,12 +60,14 @@ npm run dev
 - [Next.js:](https://nextjs.org/) A React-based web framework for building
   server-side rendered (SSR) and static websites.
 
-- TypeScript: A superset of JavaScript that adds static typing and other
-  language features.
+- [TypeScript](https://www.typescriptlang.org/) A superset of JavaScript that
+  adds static typing and other language features.
 
-- MongoDB: A NoSQL database for storing data.
+- [MongoDB](https://www.mongodb.com/cloud/atlas/register) A NoSQL database for
+  storing data.
 
-- Prisma: A database ORM (Object-Relational Mapping) tool for interacting with
-  the database.
+- [Prisma](https://www.prisma.io/docs/getting-started) A database ORM
+  (Object-Relational Mapping) tool for interacting with the database.
 
-- Tailwind CSS: A utility-first CSS framework for styling web applications.
+- [Tailwind CSS](https://tailwindcss.com/docs/installation) A utility-first CSS
+  framework for styling web applications.
