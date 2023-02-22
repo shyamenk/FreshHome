@@ -26,15 +26,9 @@ export default NextAuth({
   },
 
   callbacks: {
-    async signIn({user, account, profile, email, credentials}) {
-      console.log(user)
-      console.log(account)
-      console.log(profile)
-      console.log(email)
-      console.log(credentials)
-
-      return true
-    },
+    // async signIn({user, account, profile, email, credentials}) {
+    //   return true
+    // },
     // async redirect({ url, baseUrl }) { return baseUrl },
     async session({session, user}) {
       if (session) {

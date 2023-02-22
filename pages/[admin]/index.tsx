@@ -1,18 +1,26 @@
 import AdminLayout from '@/components/layout/AdminLayout'
-import PermissionDenied from '@/components/shared/PermissionDenied'
 import Spinner from '@/components/shared/Spinner'
-import {prisma} from '@/lib/prisma'
-import {InferGetServerSidePropsType} from 'next'
 import {useSession} from 'next-auth/react'
+import {useRouter} from 'next/router'
 import {ReactElement} from 'react'
 
-type ServerSideProps = InferGetServerSidePropsType<typeof getServerSideProps>
+// type ServerSideProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const AdminDashboard = (props: ServerSideProps) => {
+const AdminDashboard = () => {
   const {data: session, status} = useSession()
+  const router = useRouter()
 
-  // if (status === 'loading') return <Spinner />
+  if (status === 'loading') {
+    return <Spinner />
+  }
 
+  // if (status === 'unauthenticated') {
+  //   router.push('/login')
+  // }
+
+  if (session?.user.role === 'USER') {
+    router.push('/')
+  }
   if (session?.user.role === 'ADMIN') {
     return (
       <>
@@ -143,20 +151,18 @@ const AdminDashboard = (props: ServerSideProps) => {
         </div>
       </>
     )
-  } else {
-    return <PermissionDenied />
   }
 }
 
-export const getServerSideProps = async () => {
-  const product = await prisma.product.findMany({
-    include: {
-      Category: true,
-    },
-  })
+// export const getServerSideProps = async () => {
+//   const product = await prisma.product.findMany({
+//     include: {
+//       Category: true,
+//     },
+//   })
 
-  return {props: {product}}
-}
+//   return {props: {product}}
+// }
 
 AdminDashboard.getLayout = function getLayout(page: ReactElement) {
   return (
