@@ -24,13 +24,13 @@ npm install
 ```
 
 3. Set up the environment variables.
-   - Copy the .env.example file to .env.local and fill in the required values.
+   - Copy the .env.sample file to .env and fill in the required values.
 
 ```bash
-cp .env.example .env.local
+cp .env.sample .env
 ```
 
-4. Start the development server.
+1. Start the development server.
 
 ```bash
 npm run dev
@@ -57,8 +57,8 @@ npm run dev
 
 ## Tech Stack
 
-- Next.js: A React-based web framework for building server-side rendered (SSR)
-  and static websites.
+- [Next.js:](https://nextjs.org/) A React-based web framework for building
+  server-side rendered (SSR) and static websites.
 
 - TypeScript: A superset of JavaScript that adds static typing and other
   language features.
